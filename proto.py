@@ -11,9 +11,6 @@ class ProtoObject(object):
     def __init__(self, msg_name, **kwargs):
         self._proto = getattr(caffe_pb2, msg_name)
         self._field_info = self._proto.DESCRIPTOR.fields_by_name
-        for field, info in self._field_info.items():
-            if info.default_value is not None:
-                setattr(self, field, info.default_value)
         for key, value in kwargs.items():
             if isinstance(value, dict):
                 message_desc = self._field_info[key].message_type
