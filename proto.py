@@ -63,7 +63,6 @@ class ProtoObject(object):
                 val = list(val)
             if info.message_type:
                 if info.label == info.LABEL_REPEATED:
-                    protocls = cls._message_type_to_protoclass(info.message_type)
                     setattr(protoobj, field, [ProtoObject.from_message(param_msg) for param_msg in val])
                 else:
                     setattr(protoobj, field, ProtoObject.from_message(val))
