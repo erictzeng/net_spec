@@ -154,6 +154,15 @@ class ProtoNet(ProtoObject):
         with open(outpath, 'w') as f:
             f.write(protobuf.text_format.MessageToString(self.to_message()))
 
+    def insert_after(self, name, layer):
+        """Inserts layer after the *last* layer with the provided name."""
+        for i, old_layer in reversed(list(enumerate(self.layer))):
+            if old_layer.name == name:
+                break
+        else:
+            raise NameError('No layer with name {}'.format(name))
+        self.layer.insert(i+1, layer)
+
 
 class MetaProtoLayer(type):
 
